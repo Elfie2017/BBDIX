@@ -116,10 +116,10 @@ select max(r.superficie) from resserre r;
 --***
 
 --23. Nombre d'habitants par village (nom du village, nombre). (7 lignes)
-select sum(h.num_hab) from habitant h 
+select v.nom_village, count (h.num_hab) as nombrehab from habitant h 
 join village v on h.num_village = v.num_village 
 group by v.nom_village;
- 
+
 --24. Nombre de trophées par habitant (6 lignes)
 select h.nom , count(t.num_preneur) as nombre  from trophee t 
 join habitant h on t.num_preneur = h.num_hab 
@@ -132,7 +132,7 @@ join province p on v.num_province = p.num_province
 group by p.nom_province; 
 
 --26. Nombre de potions différentes absorbées par chaque habitant (nom et nombre). (9lignes)
-select h.nom , count (p.lib_potion)  from potion p 
+select h.nom , count (distinct p.lib_potion)  from potion p 
 join absorber a on p.num_potion = a.num_potion 
 join habitant h on a.num_hab = h.num_hab 
 group by h.nom ;
